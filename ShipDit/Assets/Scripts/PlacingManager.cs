@@ -20,7 +20,7 @@ public class PlacingManager : MonoBehaviour
     }
 
     public List<ShipsToPlace> shipList = new List<ShipsToPlace>();
-    int currentShip = 1;
+    int currentShip ;
     RaycastHit hit;
     Vector3 hitPoint;
 
@@ -28,7 +28,6 @@ public class PlacingManager : MonoBehaviour
     void Start()
     {
         ActivateShipGhost(-1);
-        ActivateShipGhost(currentShip);
     }
 
     // Update is called once per frame
@@ -88,7 +87,9 @@ public class PlacingManager : MonoBehaviour
         Vector3 pos = new Vector3(MathF.Round(hitPoint.x), 0, Mathf.Round(hitPoint.z));
         Quaternion rot = shipList[currentShip].shipGhost.transform.rotation;
         GameObject newShip = Instantiate(shipList[currentShip].shipPrefab, pos, rot);
-
+        shipList[currentShip].placedAmount++;
+        isPlacing = false;
+        ActivateShipGhost(-1);
 
     }
 
@@ -111,4 +112,19 @@ public class PlacingManager : MonoBehaviour
         return true;
     }
 
+    public void ShipButton(int index)
+    {
+        if (CheckIfAllShipsPlaced(index))
+        {
+            Debug.Log("You have placed enough");
+            return;
+        }
+        currentShip = index;
+        ActivateShipGhost(currentShip);
+        isPlacing = true;
+    }
+    bool CheckIfAllShipsPlaced(int index)
+    {
+        return shipList[index].placedAmount == shipList[index].amountToPlace;
+    }
 }
