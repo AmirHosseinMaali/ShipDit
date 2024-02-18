@@ -15,14 +15,14 @@ public class GhostBehavior : MonoBehaviour
     public bool OverTile()
     {
         info = GetTileInfo();
-        if(info!=null)
+        if (info != null)
         {
             return true;
         }
         info = null;
         return false;
     }
-    TileInfo GetTileInfo()
+    public TileInfo GetTileInfo()
     {
         Ray ray = new Ray(transform.position, -transform.up);
         if (Physics.Raycast(ray, out hit, 1f, layerToCheck))
