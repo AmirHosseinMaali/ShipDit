@@ -20,7 +20,7 @@ public class PlacingManager : MonoBehaviour
     }
 
     public List<ShipsToPlace> shipList = new List<ShipsToPlace>();
-    int currentShip ;
+    int currentShip;
     RaycastHit hit;
     Vector3 hitPoint;
 
@@ -86,7 +86,11 @@ public class PlacingManager : MonoBehaviour
     {
         Vector3 pos = new Vector3(MathF.Round(hitPoint.x), 0, Mathf.Round(hitPoint.z));
         Quaternion rot = shipList[currentShip].shipGhost.transform.rotation;
+
         GameObject newShip = Instantiate(shipList[currentShip].shipPrefab, pos, rot);
+
+        GameManager.Instance.UpdateGrid(shipList[currentShip].shipGhost.transform, newShip.GetComponent<ShipBehavior>(), newShip);
+
         shipList[currentShip].placedAmount++;
         isPlacing = false;
         ActivateShipGhost(-1);

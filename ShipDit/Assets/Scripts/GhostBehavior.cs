@@ -15,7 +15,7 @@ public class GhostBehavior : MonoBehaviour
     public bool OverTile()
     {
         info = GetTileInfo();
-        if (info != null)
+        if (info != null && !GameManager.Instance.CheckIfOccupied(info.xPos, info.zPos))
         {
             return true;
         }
