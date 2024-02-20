@@ -99,4 +99,25 @@ public class GameManager : MonoBehaviour
             print(s);
         }
     }
+
+    public void DeleteAllShips()
+    {
+        foreach (var item in players[activePlayer].placedShipList)
+        {
+            Destroy(item);
+        }
+        players[activePlayer].placedShipList.Clear();
+        InitGrid();
+    }
+    void InitGrid()
+    {
+        for (int x = 0; x < 10; x++)
+        {
+            for (int y = 0; y < 10; y++)
+            {
+                OccupaationType type = OccupaationType.EMPTY;
+                players[activePlayer].myGrid[x, y] = new Tile(type, null);
+            }
+        }
+    }
 }

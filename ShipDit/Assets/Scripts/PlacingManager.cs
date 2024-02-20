@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlacingManager : MonoBehaviour
 {
@@ -16,10 +18,12 @@ public class PlacingManager : MonoBehaviour
         public GameObject shipGhost;
         public GameObject shipPrefab;
         public int amountToPlace = 1;
+        public TMP_Text amountText;
         [HideInInspector] public int placedAmount = 0;
     }
 
     public List<ShipsToPlace> shipList = new List<ShipsToPlace>();
+    public Button readyButton;
     int currentShip;
     RaycastHit hit;
     Vector3 hitPoint;
@@ -27,6 +31,8 @@ public class PlacingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        readyButton.interactable = false;
+        UpdateAmountText();
         ActivateShipGhost(-1);
     }
 
@@ -95,6 +101,10 @@ public class PlacingManager : MonoBehaviour
         isPlacing = false;
         ActivateShipGhost(-1);
 
+        CheckEveryShipPlaced();
+
+        UpdateAmountText();
+
     }
 
     void RotateGhost()
@@ -116,6 +126,16 @@ public class PlacingManager : MonoBehaviour
         return true;
     }
 
+    bool CheckEveryShipPlaced()
+    {
+        foreach (var item in shipList)
+        {
+            if (item.placedAmount != item.amountToPlace) return false;
+        }
+        readyButton.interactable = true;
+        return true;
+    }
+
     public void ShipButton(int index)
     {
         if (CheckIfAllShipsPlaced(index))
@@ -127,8 +147,27 @@ public class PlacingManager : MonoBehaviour
         ActivateShipGhost(currentShip);
         isPlacing = true;
     }
+
     bool CheckIfAllShipsPlaced(int index)
     {
         return shipList[index].placedAmount == shipList[index].amountToPlace;
+    }
+
+    void UpdateAmountText()
+    {
+        foreach (var item in shipList)
+        {
+            item.amountText.text = (item.amountToPlace - item.placedAmount).ToString();
+        }
+    }
+
+    public void ClearAllShips()
+    {
+        GameManager.Instance.DeleteAllShips();
+        foreach (var item in shipList)
+        {
+            item.placedAmount = 0;
+        }
+        UpdateAmountText();
     }
 }
