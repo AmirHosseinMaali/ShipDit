@@ -39,6 +39,12 @@ public class GameManager : MonoBehaviour
     }
     int activePlayer;
     public Player[] players = new Player[2];
+
+    private void Start()
+    {
+        PlacingManager.Instance.SetPlayer(players[activePlayer].playfield, players[activePlayer].playerType.ToString()); 
+        
+    }
     void AddShipToList(GameObject placedShip)
     {
         players[activePlayer].placedShipList.Add(placedShip);
@@ -54,7 +60,7 @@ public class GameManager : MonoBehaviour
         AddShipToList(placedShip);
         DebugGrid();
     }
-    public bool CheckIfOccupied(int xPos,int zPos)
+    public bool CheckIfOccupied(int xPos, int zPos)
     {
         return players[activePlayer].myGrid[xPos, zPos].IsOccupied();
     }

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class PlacingManager : MonoBehaviour
 {
+    public static PlacingManager Instance;
+
     public bool isPlacing;
     bool canPlace;
 
@@ -28,15 +30,31 @@ public class PlacingManager : MonoBehaviour
     RaycastHit hit;
     Vector3 hitPoint;
 
+    private void Awake()
+    {
+        Instance = this; 
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        readyButton.interactable = false;
         UpdateAmountText();
         ActivateShipGhost(-1);
     }
 
-    // Update is called once per frame
+    public void SetPlayer(Playfield _playfield,string plyerType)
+    {
+        playfield = _playfield;
+        readyButton.interactable = false;
+
+        ClearAllShips();
+
+        if( plyerType== "AI")
+        {
+
+        }
+    }
+
     void Update()
     {
         if (isPlacing)
@@ -44,6 +62,10 @@ public class PlacingManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerToCheck))
             {
+                if (!playfield.RequestTile(hit.collider.GetComponent<TileInfo>()))
+                {
+                    return;
+                }
                 hitPoint = hit.point;
             }
 
