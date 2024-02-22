@@ -5,11 +5,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
-
     [System.Serializable]
     public class Player
     {
@@ -23,6 +18,11 @@ public class GameManager : MonoBehaviour
         public bool[,] revealedGrid = new bool[10, 10];
         public Playfield playfield;
         public LayerMask layerToPlaceOn;
+
+        [Space]
+        public GameObject camPos;
+        public GameObject placePanel;
+        public GameObject shootPanel;
         public Player()
         {
             for (int x = 0; x < 10; x++)
@@ -37,14 +37,26 @@ public class GameManager : MonoBehaviour
         }
         public List<GameObject> placedShipList = new List<GameObject>();
     }
+
     int activePlayer;
     public Player[] players = new Player[2];
 
-    private void Start()
+    public enum GameState
     {
-        PlacingManager.Instance.SetPlayer(players[activePlayer].playfield, players[activePlayer].playerType.ToString()); 
-        
+        P1_PLACE_SHIPS,
+        P2_PLACE_SHIPS,
+        SHOOTING,
+        IDLE
     }
+    public GameState gameState;
+
+    public GameObject battleCamPos;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void AddShipToList(GameObject placedShip)
     {
         players[activePlayer].placedShipList.Add(placedShip);
@@ -124,6 +136,32 @@ public class GameManager : MonoBehaviour
                 OccupaationType type = OccupaationType.EMPTY;
                 players[activePlayer].myGrid[x, y] = new Tile(type, null);
             }
+        }
+    }
+
+    private void Update()
+    {
+        switch (gameState)
+        {
+            case GameState.P1_PLACE_SHIPS:
+                PlacingManager.Instance.SetPlayer(players[activePlayer].playfield, players[activePlayer].playerType.ToString());
+                gameState = GameState.IDLE;
+                break;
+            case GameState.P2_PLACE_SHIPS:
+
+                PlacingManager.Instance.SetPlayer(players[activePlayer].playfield, players[activePlayer].playerType.ToString());
+                gameState = GameState.IDLE;
+                break;
+            case GameState.SHOOTING:
+                if (players[activePlayer].playerType == Player.PlayerType.AI)
+                {
+
+                }
+                break;
+            case GameState.IDLE:
+                break;
+            default:
+                break;
         }
     }
 }
