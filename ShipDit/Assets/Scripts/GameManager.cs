@@ -57,6 +57,16 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        HideAllPanels();
+
+        players[activePlayer].placePanel.SetActive(true);
+        gameState = GameState.IDLE;
+
+
+    }
+
     void AddShipToList(GameObject placedShip)
     {
         players[activePlayer].placedShipList.Add(placedShip);
@@ -144,10 +154,13 @@ public class GameManager : MonoBehaviour
         switch (gameState)
         {
             case GameState.P1_PLACE_SHIPS:
+                players[activePlayer].placePanel.SetActive(false);
+
                 PlacingManager.Instance.SetPlayer(players[activePlayer].playfield, players[activePlayer].playerType.ToString());
                 gameState = GameState.IDLE;
                 break;
             case GameState.P2_PLACE_SHIPS:
+                players[activePlayer].placePanel.SetActive(false);
 
                 PlacingManager.Instance.SetPlayer(players[activePlayer].playfield, players[activePlayer].playerType.ToString());
                 gameState = GameState.IDLE;
@@ -163,5 +176,60 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void HideAllPanels()
+    {
+        players[0].placePanel.SetActive(false);
+        players[0].shootPanel.SetActive(false);
+
+        players[1].placePanel.SetActive(false);
+        players[1].shootPanel.SetActive(false);
+    }
+
+    public void P1PlaceShips()
+    {
+        gameState = GameState.P1_PLACE_SHIPS;
+    }
+
+    public void P2PlaceShips()
+    {
+        gameState = GameState.P2_PLACE_SHIPS;
+    }
+
+    public void PlacingReady()
+    {
+        if (activePlayer == 0)
+        {
+            HideAllMyShips();
+            SwitchPlayer();
+        }
+        if (activePlayer == 1)
+        {
+            HideAllMyShips();
+            SwitchPlayer();
+        }
+    }
+
+    void HideAllMyShips()
+    {
+        foreach (var ship in players[activePlayer].placedShipList)
+        {
+            ship.GetComponent<MeshRenderer>().enabled = false;
+        }
+    }
+
+    void UnHideAllMyShips()
+    {
+        foreach (var ship in players[activePlayer].placedShipList)
+        {
+            ship.GetComponent<MeshRenderer>().enabled = true;
+        }
+    }
+
+    void SwitchPlayer()
+    {
+        activePlayer++;
+        activePlayer %= 2;
     }
 }

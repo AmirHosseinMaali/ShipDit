@@ -8,7 +8,7 @@ public class PlacingManager : MonoBehaviour
 {
     public static PlacingManager Instance;
 
-    public bool isPlacing;
+    bool isPlacing;
     bool canPlace;
 
     Playfield playfield;
@@ -32,7 +32,7 @@ public class PlacingManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this; 
+        Instance = this;
     }
 
     // Start is called before the first frame update
@@ -42,14 +42,14 @@ public class PlacingManager : MonoBehaviour
         ActivateShipGhost(-1);
     }
 
-    public void SetPlayer(Playfield _playfield,string plyerType)
+    public void SetPlayer(Playfield _playfield, string plyerType)
     {
         playfield = _playfield;
         readyButton.interactable = false;
 
         ClearAllShips();
 
-        if( plyerType== "AI")
+        if (plyerType == "AI")
         {
 
         }
@@ -87,7 +87,6 @@ public class PlacingManager : MonoBehaviour
         if (index != -1)
         {
             if (shipList[index].shipGhost.activeInHierarchy) return;
-
         }
         for (int i = 0; i < shipList.Count; i++)
         {
