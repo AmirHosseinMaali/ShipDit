@@ -47139,11 +47139,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: '>>PlacingCanvas'
       objectReference: {fileID: 0}
-    - target: {fileID: 149034547999360707, guid: f658b6284a4be2643a78f7cc692d5b9c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 711292166975754703, guid: f658b6284a4be2643a78f7cc692d5b9c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -47159,26 +47154,36 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 519096086}
-    - target: {fileID: 2523400410365720583, guid: f658b6284a4be2643a78f7cc692d5b9c,
+    - target: {fileID: 1912144786410979013, guid: f658b6284a4be2643a78f7cc692d5b9c,
         type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.515625
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912144786410979013, guid: f658b6284a4be2643a78f7cc692d5b9c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 519096086}
+    - target: {fileID: 1912144786410979013, guid: f658b6284a4be2643a78f7cc692d5b9c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AutoPlace
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912144786410979013, guid: f658b6284a4be2643a78f7cc692d5b9c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlacingManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912144786410979013, guid: f658b6284a4be2643a78f7cc692d5b9c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3859058585060625286, guid: f658b6284a4be2643a78f7cc692d5b9c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1908234752}
-    - target: {fileID: 3859058585060625286, guid: f658b6284a4be2643a78f7cc692d5b9c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlacingReady
-      objectReference: {fileID: 0}
-    - target: {fileID: 3859058585060625286, guid: f658b6284a4be2643a78f7cc692d5b9c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 4605107796796738288, guid: f658b6284a4be2643a78f7cc692d5b9c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -47293,16 +47298,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7821004228458197214, guid: f658b6284a4be2643a78f7cc692d5b9c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -470.73828
-      objectReference: {fileID: 0}
-    - target: {fileID: 7963863125969490271, guid: f658b6284a4be2643a78f7cc692d5b9c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -157.78125
       objectReference: {fileID: 0}
     - target: {fileID: 8958415980593593542, guid: f658b6284a4be2643a78f7cc692d5b9c,
         type: 3}

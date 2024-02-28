@@ -190,5 +190,84 @@ public class PlacingManager : MonoBehaviour
             item.placedAmount = 0;
         }
         UpdateAmountText();
+
+        readyButton.interactable = false;
     }
+
+    public void AutoPlace()
+    {
+        ClearAllShips();
+
+        bool posFound = false;
+
+        for (int i = 0; i < shipList.Count; i++)
+        {
+            for (int j = 0; j < shipList[i].amountToPlace; j++)
+            {
+                if (shipList[i].amountToPlace <= 0)
+                {
+                    return;
+                }
+                posFound = false;
+
+                while (!posFound)
+                {
+                    currentShip = i;
+                    int xPos = UnityEngine.Random.Range(0, 10);
+                    int zPos = UnityEngine.Random.Range(0, 10);
+
+                    GameObject tempGhost = Instantiate(shipList[currentShip].shipGhost);
+                    tempGhost.SetActive(true);
+
+
+                    tempGhost.transform.position = new Vector3(playfield.transform.position.x + xPos, 0, playfield.transform.position.z + zPos);
+
+                    Vector3[] rot = { Vector3.zero, new Vector3(0, 90, 0), new Vector3(0, 180, 0), new Vector3(0, 270, 0) };
+
+                    for (int r = 0; r < rot.Length; r++)
+                    {
+                        List<int> indexList = new List<int> { 0, 1, 2, 3 };
+                        int rr = indexList[UnityEngine.Random.Range(0, indexList.Count)];
+
+                        tempGhost.transform.rotation = Quaternion.Euler(rot[rr]);
+                        if (CheckForOtherShips(tempGhost.transform))
+                        {
+                            PlaceAutoShip(tempGhost);
+                            posFound = true;
+                        }
+                        else
+                        {
+                            Destroy(tempGhost);
+                            indexList.Remove(r);
+                        }
+                    }
+                }
+            }
+        }
+        readyButton.interactable = true;
+        CheckEveryShipPlaced();
+    }
+    bool CheckForOtherShips(Transform tr)
+    {
+        foreach (Transform child in tr.transform)
+        {
+            GhostBehavior ghost = child.GetComponent<GhostBehavior>();
+            if (!ghost.OverTile())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void PlaceAutoShip(GameObject temp)
+    {
+        GameObject newShip = Instantiate(shipList[currentShip].shipPrefab, temp.transform.position, temp.transform.rotation);
+        GameManager.Instance.UpdateGrid(temp.transform, newShip.GetComponent<ShipBehavior>(), newShip);
+        shipList[currentShip].placedAmount++;
+        Destroy(temp);
+
+        UpdateAmountText();
+    }
+
 }
