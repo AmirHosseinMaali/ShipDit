@@ -220,7 +220,6 @@ public class GameManager : MonoBehaviour
             SwitchPlayer();
             StartCoroutine(MoveCamera(battleCamPos));
             players[activePlayer].shootPanel.SetActive(true);
-            UnHideAllMyShips();
             placingCanvas.SetActive(false);
         }
     }
@@ -272,5 +271,21 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         camIsMoving = false;
+    }
+
+    public void ShotButton()
+    {
+        UnHideAllMyShips();
+        players[activePlayer].shootPanel.SetActive(false);
+        gameState = GameState.SHOOTING;
+    }
+
+    int Opponent()
+    {
+        int me = activePlayer;
+        me++;
+        me %= 2;
+        int opponent = me;
+        return opponent;
     }
 }
