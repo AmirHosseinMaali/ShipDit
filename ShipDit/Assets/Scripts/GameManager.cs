@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject placingCanvas;
 
+    public bool isShooting;
+
     private void Awake()
     {
         Instance = this;
@@ -287,5 +289,56 @@ public class GameManager : MonoBehaviour
         me %= 2;
         int opponent = me;
         return opponent;
+    }
+
+    public void CheckShot(int x, int z, TileInfo info)
+    {
+        StartCoroutine(CheckCoordinate(x, z, info));
+    }
+    IEnumerator CheckCoordinate(int x, int z, TileInfo info)
+    {
+        if (isShooting)
+        {
+            yield break;
+        }
+        isShooting = true;
+
+        int opponent = Opponent();
+
+        if (!players[opponent].playfield.RequestTile(info))
+        {
+            print("Don't shoot yourself");
+            isShooting = false;
+            yield break;
+        }
+
+        if (players[opponent].revealedGrid[x, z])
+        {
+            print("You shot here already");
+            isShooting = false;
+            yield break;
+        }
+
+        if (players[opponent].myGrid[x, z].IsOccupied())
+        {
+            bool sunk = players[opponent].myGrid[x, z].placedShip.TakeDamage();
+            if (sunk)
+            {
+                players[opponent].placedShipList.Remove(players[opponent].myGrid[x, z].placedShip.gameObject);
+            }
+
+            info.ActivateHighlight(3, true);
+        }
+        else
+        {
+            info.ActivateHighlight(2, true);
+        }
+        players[opponent].revealedGrid[x, z] = true;
+
+        if (players[opponent].placedShipList.Count == 0)
+        {
+            print("You WIN!");
+        }
+        isShooting = false;
     }
 }

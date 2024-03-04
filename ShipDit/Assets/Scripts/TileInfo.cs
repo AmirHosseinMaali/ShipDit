@@ -11,7 +11,7 @@ public class TileInfo : MonoBehaviour
     public Sprite[] tileHighlights;
     //0-frame,1-crossHair,2-water,3-ship
 
-    public void ActivateHighlight(int index,bool _shot)
+    public void ActivateHighlight(int index, bool _shot)
     {
         sprite.sprite = tileHighlights[index];
 
@@ -28,11 +28,11 @@ public class TileInfo : MonoBehaviour
         {
             if (!shot)
             {
-                ActivateHighlight(1,false);
+                ActivateHighlight(1, false);
             }
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
-
+                GameManager.Instance.CheckShot(xPos, zPos, this);
             }
         }
     }
@@ -40,7 +40,7 @@ public class TileInfo : MonoBehaviour
     {
         if (!shot)
         {
-            ActivateHighlight(0,false);
+            ActivateHighlight(0, false);
         }
     }
 }

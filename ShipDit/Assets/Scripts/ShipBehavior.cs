@@ -22,12 +22,14 @@ public class ShipBehavior : MonoBehaviour
         return hitAmount < shipLength && hitAmount > 0;
     }
 
-    public void TakeDamage()
+    public bool TakeDamage()
     {
         hitAmount--;
         if(IsSunk() )
         {
-
+            GetComponent<MeshRenderer>().enabled = true;
+            return true;
         }
+        return false;
     }
 }
