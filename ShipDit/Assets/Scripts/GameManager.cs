@@ -59,6 +59,10 @@ public class GameManager : MonoBehaviour
 
     public bool isShooting;
 
+    public GameObject rocketPrefab;
+    float amplitude = 2f;
+    float cTime;
+
     private void Awake()
     {
         Instance = this;
@@ -319,6 +323,19 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
+        Vector3 startPos = Vector3.zero;
+        Vector3 goalPos = info.gameObject.transform.position;
+
+        GameObject rocket = Instantiate(rocketPrefab, startPos, Quaternion.identity);
+
+        while (MoveInArcToTile(startPos, goalPos, .8f, rocket))
+        {
+            yield return null;
+        }
+
+        Destroy(rocket);
+        cTime = 0;
+
         if (players[opponent].myGrid[x, z].IsOccupied())
         {
             bool sunk = players[opponent].myGrid[x, z].placedShip.TakeDamage();
@@ -340,5 +357,14 @@ public class GameManager : MonoBehaviour
             print("You WIN!");
         }
         isShooting = false;
+    }
+    bool MoveInArcToTile(Vector3 startPos, Vector3 goalPos, float speed, GameObject rocket)
+    {
+        cTime += speed * Time.deltaTime;
+        Vector3 myPos = Vector3.Lerp(startPos, goalPos, cTime);
+        myPos.y = amplitude * Mathf.Sin(Mathf.Clamp01(cTime) * Mathf.PI);
+        rocket.transform.LookAt(myPos);
+
+        return goalPos != (rocket.transform.position = Vector3.Lerp(rocket.transform.position, myPos, cTime));
     }
 }
