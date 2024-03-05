@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
         public GameObject camPos;
         public GameObject placePanel;
         public GameObject shootPanel;
+        [Space]
+        public GameObject winPanel;
         public Player()
         {
             for (int x = 0; x < 10; x++)
@@ -71,7 +73,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         HideAllPanels();
-
+        players[0].winPanel.SetActive(false);
+        players[1].winPanel.SetActive(false);
         players[activePlayer].placePanel.SetActive(true);
         gameState = GameState.IDLE;
 
@@ -355,7 +358,15 @@ public class GameManager : MonoBehaviour
         if (players[opponent].placedShipList.Count == 0)
         {
             print("You WIN!");
+            players[activePlayer].winPanel.SetActive(true);
+            yield break;
         }
+
+        yield return new WaitForSeconds(1.2f);
+        HideAllMyShips();
+        SwitchPlayer();
+        players[activePlayer].shootPanel.SetActive(true);
+        gameState = GameState.IDLE;
         isShooting = false;
     }
     bool MoveInArcToTile(Vector3 startPos, Vector3 goalPos, float speed, GameObject rocket)
