@@ -219,6 +219,12 @@ public class GameManager : MonoBehaviour
         {
             HideAllMyShips();
             SwitchPlayer();
+            if (players[activePlayer].playerType==Player.PlayerType.AI)
+            {
+                gameState = GameState.P2_PLACE_SHIPS;
+                StartCoroutine(MoveCamera(battleCamPos));
+                return;
+            }
             StartCoroutine(MoveCamera(players[activePlayer].camPos));
             players[activePlayer].placePanel.SetActive(true);
             return;
@@ -302,6 +308,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(CheckCoordinate(x, z, info));
     }
+
     IEnumerator CheckCoordinate(int x, int z, TileInfo info)
     {
         if (isShooting)
@@ -378,6 +385,7 @@ public class GameManager : MonoBehaviour
         gameState = GameState.IDLE;
         isShooting = false;
     }
+
     bool MoveInArcToTile(Vector3 startPos, Vector3 goalPos, float speed, GameObject rocket)
     {
         cTime += speed * Time.deltaTime;
@@ -471,7 +479,7 @@ public class GameManager : MonoBehaviour
                 int checkX = originalCoords[0] + x;
                 int checkZ = originalCoords[1] + z;
 
-                if (checkX >= 0 && checkX < 10 && checkZ >= 0 && checkZ < 10)
+                if (checkX >= 0 && checkX < 10 && checkZ >= 0 && checkZ < 10 && !players[Opponent()].revealedGrid[checkX, checkZ])
                 {
                     neighbors.Add(new int[2] { checkX, checkZ });
                 }

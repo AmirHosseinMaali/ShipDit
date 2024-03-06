@@ -51,7 +51,8 @@ public class PlacingManager : MonoBehaviour
 
         if (plyerType == "AI")
         {
-
+            AutoPlace();
+            GameManager.Instance.PlacingReady();
         }
     }
 
