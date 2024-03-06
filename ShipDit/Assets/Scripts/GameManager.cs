@@ -365,6 +365,15 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.2f);
         HideAllMyShips();
         SwitchPlayer();
+
+        if (players[activePlayer].playerType == Player.PlayerType.AI)
+        {
+            isShooting = false;
+            gameState = GameState.IDLE;
+            AIShot();
+            yield break;
+        }
+
         players[activePlayer].shootPanel.SetActive(true);
         gameState = GameState.IDLE;
         isShooting = false;
@@ -377,5 +386,97 @@ public class GameManager : MonoBehaviour
         rocket.transform.LookAt(myPos);
 
         return goalPos != (rocket.transform.position = Vector3.Lerp(rocket.transform.position, myPos, cTime));
+    }
+
+    void AIShot()
+    {
+        int index = 0;
+        int x = 0;
+        int z = 0;
+
+        TileInfo info = null;
+
+        int opponent = Opponent();
+
+        List<int[]> partiallyRevealedTiles = new List<int[]>();
+
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                if (players[opponent].revealedGrid[i, j])
+                {
+                    if (players[opponent].myGrid[i, j].IsOccupied())
+                    {
+                        if (players[opponent].myGrid[i, j].placedShip.IsHit())
+                        {
+                            partiallyRevealedTiles.Add(new int[2] { i, j });
+                        }
+                    }
+                }
+            }
+        }
+
+        List<int[]> neighborList = new List<int[]>();
+        if (partiallyRevealedTiles.Count > 0)
+        {
+            for (int i = 0; i < partiallyRevealedTiles.Count; i++)
+            {
+                neighborList.AddRange(GetNeighbors(partiallyRevealedTiles[i]));
+            }
+            index = Random.Range(0, neighborList.Count);
+            x = neighborList[index][0];
+            z = neighborList[index][1];
+
+            info = players[opponent].playfield.GetTileInfo(x, z);
+
+            CheckShot(x, z, info);
+            return;
+        }
+
+        List<int[]> randomTileList = new List<int[]>();
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                if (!players[opponent].revealedGrid[i, j])
+                {
+                    randomTileList.Add(new int[2] { i, j });
+                }
+            }
+        }
+
+        index = Random.Range(0, randomTileList.Count);
+        x = randomTileList[index][0];
+        z = randomTileList[index][1];
+
+        info = players[opponent].playfield.GetTileInfo(x, z);
+
+        CheckShot(x, z, info);
+    }
+
+    List<int[]> GetNeighbors(int[] originalCoords)
+    {
+        List<int[]> neighbors = new List<int[]>();
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int z = -1; z <= 1; z++)
+            {
+                if (x == 0 && z == 0) continue;
+                if (x == 1 && z == 1) continue;
+                if (x == -1 && z == 1) continue;
+                if (x == -1 && z == -1) continue;
+                if (x == 1 && z == -1) continue;
+
+                int checkX = originalCoords[0] + x;
+                int checkZ = originalCoords[1] + z;
+
+                if (checkX >= 0 && checkX < 10 && checkZ >= 0 && checkZ < 10)
+                {
+                    neighbors.Add(new int[2] { checkX, checkZ });
+                }
+            }
+        }
+        return neighbors;
     }
 }

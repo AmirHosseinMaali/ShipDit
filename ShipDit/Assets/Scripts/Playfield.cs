@@ -34,6 +34,18 @@ public class Playfield : MonoBehaviour
         return tileInfoList.Contains(info);
     }
 
+
+    public TileInfo GetTileInfo(int x, int z)
+    {
+        for (int i = 0; i < tileInfoList.Count; i++)
+        {
+            if (tileInfoList[i].xPos == x && tileInfoList[i].zPos == z)
+            {
+                return tileInfoList[i];
+            }
+        }
+        return null;
+    }
     private void OnDrawGizmos()
     {
         if (tilePrefab == null || !fill) return;

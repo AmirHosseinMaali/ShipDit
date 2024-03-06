@@ -42319,7 +42319,7 @@ MonoBehaviour:
     shootPanel: {fileID: 4446028204886569545}
     winPanel: {fileID: 72175491}
     placedShipList: []
-  - playerType: 0
+  - playerType: 1
     playfield: {fileID: 897856042}
     layerToPlaceOn:
       serializedVersion: 2
@@ -46923,6 +46923,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '>>HiderCanvas'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4744880488891175506, guid: c88b0ad665c265d46bf8b4403a16ce78,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5975670015431862358, guid: c88b0ad665c265d46bf8b4403a16ce78,
         type: 3}
