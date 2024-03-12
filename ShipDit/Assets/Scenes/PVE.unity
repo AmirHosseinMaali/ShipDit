@@ -46924,11 +46924,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: '>>HiderCanvas'
       objectReference: {fileID: 0}
-    - target: {fileID: 4744880488891175506, guid: c88b0ad665c265d46bf8b4403a16ce78,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5975670015431862358, guid: c88b0ad665c265d46bf8b4403a16ce78,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
