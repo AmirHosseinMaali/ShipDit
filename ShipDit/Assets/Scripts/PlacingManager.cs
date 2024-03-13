@@ -162,7 +162,6 @@ public class PlacingManager : MonoBehaviour
     {
         if (CheckIfAllShipsPlaced(index))
         {
-            Debug.Log("You have placed enough");
             return;
         }
         currentShip = index;
@@ -205,10 +204,6 @@ public class PlacingManager : MonoBehaviour
         {
             for (int j = 0; j < shipList[i].amountToPlace; j++)
             {
-                if (shipList[i].amountToPlace <= 0)
-                {
-                    return;
-                }
                 posFound = false;
 
                 while (!posFound)

@@ -42311,9 +42311,6 @@ MonoBehaviour:
   players:
   - playerType: 0
     playfield: {fileID: 404030935}
-    layerToPlaceOn:
-      serializedVersion: 2
-      m_Bits: 0
     camPos: {fileID: 1196345966}
     placePanel: {fileID: 682387372102378398}
     shootPanel: {fileID: 4446028204886569545}
@@ -42321,9 +42318,6 @@ MonoBehaviour:
     placedShipList: []
   - playerType: 1
     playfield: {fileID: 897856042}
-    layerToPlaceOn:
-      serializedVersion: 2
-      m_Bits: 0
     camPos: {fileID: 1653547944}
     placePanel: {fileID: 3412838420773286988}
     shootPanel: {fileID: 5381451668233690802}
@@ -46923,6 +46917,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '>>HiderCanvas'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4744880488891175506, guid: c88b0ad665c265d46bf8b4403a16ce78,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5975670015431862358, guid: c88b0ad665c265d46bf8b4403a16ce78,
         type: 3}

@@ -42311,9 +42311,6 @@ MonoBehaviour:
   players:
   - playerType: 0
     playfield: {fileID: 404030935}
-    layerToPlaceOn:
-      serializedVersion: 2
-      m_Bits: 0
     camPos: {fileID: 1196345966}
     placePanel: {fileID: 682387372102378398}
     shootPanel: {fileID: 4446028204886569545}
@@ -42321,9 +42318,6 @@ MonoBehaviour:
     placedShipList: []
   - playerType: 0
     playfield: {fileID: 897856042}
-    layerToPlaceOn:
-      serializedVersion: 2
-      m_Bits: 0
     camPos: {fileID: 1653547944}
     placePanel: {fileID: 3412838420773286988}
     shootPanel: {fileID: 5381451668233690802}

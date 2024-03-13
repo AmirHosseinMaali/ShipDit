@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
         public Tile[,] myGrid = new Tile[10, 10];
         public bool[,] revealedGrid = new bool[10, 10];
         public Playfield playfield;
-        public LayerMask layerToPlaceOn;
 
         [Space]
         public GameObject camPos;
@@ -94,52 +93,10 @@ public class GameManager : MonoBehaviour
             players[activePlayer].myGrid[tInfo.xPos, tInfo.zPos] = new Tile(ship.type, ship);
         }
         AddShipToList(placedShip);
-        DebugGrid();
     }
     public bool CheckIfOccupied(int xPos, int zPos)
     {
         return players[activePlayer].myGrid[xPos, zPos].IsOccupied();
-    }
-    void DebugGrid()
-    {
-        string s = "";
-        int sep = 0;
-        for (int i = 0; i < 10; i++)
-        {
-            s += "|";
-            for (int j = 0; j < 10; j++)
-            {
-                string t = "0";
-                if (players[activePlayer].myGrid[i, j].type == OccupaationType.BATTLESHIP)
-                {
-                    t = "B";
-                }
-                if (players[activePlayer].myGrid[i, j].type == OccupaationType.CARRIER)
-                {
-                    t = "C";
-                }
-                if (players[activePlayer].myGrid[i, j].type == OccupaationType.CRUISER)
-                {
-                    t = "R";
-                }
-                if (players[activePlayer].myGrid[i, j].type == OccupaationType.SUBMARINE)
-                {
-                    t = "S";
-                }
-                if (players[activePlayer].myGrid[i, j].type == OccupaationType.DESTROYER)
-                {
-                    t = "D";
-                }
-                s += t;
-                sep = j % 10;
-                if (sep == 9)
-                {
-                    s += "|";
-                }
-                s += "\n";
-            }
-            print(s);
-        }
     }
 
     public void DeleteAllShips()
@@ -321,14 +278,12 @@ public class GameManager : MonoBehaviour
 
         if (!players[opponent].playfield.RequestTile(info))
         {
-            print("Don't shoot yourself");
             isShooting = false;
             yield break;
         }
 
         if (players[opponent].revealedGrid[x, z])
         {
-            print("You shot here already");
             isShooting = false;
             yield break;
         }
