@@ -14,7 +14,14 @@ public class TileInfo : MonoBehaviour
     public void ActivateHighlight(int index, bool _shot)
     {
         sprite.sprite = tileHighlights[index];
-
+        if (index == 2)
+        {
+            sprite.color = Color.blue;
+        }
+        if (index == 3)
+        {
+            sprite.color = Color.red; 
+        }
         shot = _shot;
     }
     public void SetTileInfo(int _xPos, int _zPos)
