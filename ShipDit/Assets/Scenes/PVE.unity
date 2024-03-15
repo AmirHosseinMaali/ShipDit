@@ -7490,7 +7490,7 @@ Camera:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -47193,11 +47193,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: '>>PlacingCanvas'
       objectReference: {fileID: 0}
-    - target: {fileID: 149034547999360707, guid: f658b6284a4be2643a78f7cc692d5b9c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 711292166975754703, guid: f658b6284a4be2643a78f7cc692d5b9c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -47215,29 +47210,9 @@ PrefabInstance:
       objectReference: {fileID: 519096086}
     - target: {fileID: 1912144786410979013, guid: f658b6284a4be2643a78f7cc692d5b9c,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912144786410979013, guid: f658b6284a4be2643a78f7cc692d5b9c,
-        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 519096086}
-    - target: {fileID: 1912144786410979013, guid: f658b6284a4be2643a78f7cc692d5b9c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AutoPlace
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912144786410979013, guid: f658b6284a4be2643a78f7cc692d5b9c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlacingManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912144786410979013, guid: f658b6284a4be2643a78f7cc692d5b9c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 3859058585060625286, guid: f658b6284a4be2643a78f7cc692d5b9c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
